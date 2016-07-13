@@ -8,13 +8,16 @@ var UserSchema = new mongoose.Schema({
   creationDate: { type: Date, default: Date.now }
 });
 
-
 // methods ======================
 
-
 // generate hash
+UserSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-//compareSync password
-
+//checking if password is validPassword
+UserSchema.methods.validPassord = function(password) {
+  return bcrypt.compareSync(passowrd, this.passowrd);
+};
 
 module.exports = mongoose.model('User', UserSchema);
